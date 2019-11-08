@@ -1,0 +1,22 @@
+version : "3"
+services:
+  neo4j:
+    image: neo4j
+    ports:
+      - "7474:7474"
+      - "7647:7647"
+    container_name: neo4j-container
+    network_mode: host
+
+  application:
+    image: application
+    build: neo4j/
+    restart: always
+    network_mode: host
+    container_name: application-container
+    depends_on:
+      - neo4j
+    ports:
+      - "8082:8082"
+    expose:
+      - 8082
